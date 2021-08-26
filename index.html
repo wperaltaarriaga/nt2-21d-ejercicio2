@@ -14,21 +14,12 @@
 
 
 <div class="container-fluid mt-3" id="app">
-    <p v-if="criterioDeBusqueda.length > 0">Buscando por todos los campos...Ingrese al menos tres caracteres.</p>
-    <input type="text" class="form-control" v-model="criterioDeBusqueda" v-if="nombreApellido.length == 0 && dni.length == 0"
-    placeholder="Ingresar un criterio de busqueda...">
-    <br>
-    <p v-if="nombreApellido.length > 0">Buscando por Nombre y apellido...Ingrese al menos tres caracteres.</p>
-    <input type="text" class="form-control" v-model="nombreApellido" v-if="criterioDeBusqueda.length == 0 && dni.length == 0"
-    placeholder="Ingresar nombre o apellido...">
-    <br>
-    <p v-if="dni.length > 0">Buscando por dni...Ingrese al menos tres caracteres.</p>
-    <input type="text" class="form-control" v-model="dni" v-if="criterioDeBusqueda.length == 0 && nombreApellido.length == 0"
-    placeholder="Ingresar dni...">
+    <input type="text" class="form-control" v-model="criterioDeBusqueda"
+        placeholder="Ingresar un criterio de busqueda...">
     <br>
     <div class="card-deck m-0">
         <div class="row">
-            <div class="col" v-for="persona in personasFiltradas" v-if="criterioDeBusqueda.length >= 3 || nombreApellido.length >= 3 || dni.length >= 3">
+            <div class="col" v-for="persona in personasFiltradas">
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{getNombreCompleto(persona)}}</h5>
@@ -42,325 +33,143 @@
 
 </div>
 
-
-
+</html>
 
 <script>
     new Vue({
         el: '#app',
         data: {
-            criterioDeBusqueda: "",
-            nombreApellido: "",
-            dni: "",
+            criterioDeBusqueda: '',
             //Aquí, en este array es donde tienen que agregar su información
             personas: [
                 {
-                    nombre: "Daniel",
-                    apellido: "Sánchez",
-                    correo: "danielsanchez68@hotmail.com",
-                    dni: "20442873"
+                    nombre: "Pablo Lucas",
+                    apellido: "Slaj",
+                    correo: "pablo.slaj@gmail.com",
+                    dni: "36696704"
                 },
                 {
-                    nombre: "Nicolas",
-                    apellido: "Moleres",
-                    correo: "nicolas.moleres@gmail.com",
-                    dni: "37608549"
+                    nombre: "LUCAS EZEQUIEL",
+                    apellido: "MAZZONI",
+                    correo: "hellolucasm@gmail.com",
+                    dni: "42253191"
                 },
                 {
-                    nombre: "Pablo",
-                    apellido: "Diaz Vukotich",
-                    correo: "pablo.diazvuko@gmail.com",
-                    dni: "32592850"
+                    nombre: "Miguel Hernan",
+                    apellido: "Pinella",
+                    correo: "mhpinella@gmail.com",
+                    dni: "37932974"
                 },
                 {
-                    nombre: "Julieta",
-                    apellido: "Espinola",
-                    correo: "julietaespinola.rot@gmail.com",
-                    dni: "34754853"
+                    nombre: "Fernando",
+                    apellido: "Bernasconi",
+                    correo: "fernandobernasconi@gmail.com",
+                    dni: "36191270"
                 },
                 {
-                    nombre: "Daniel",
-                    apellido: "Ramirez",
-                    correo: "daniel.m.ramirez88@gmail.com",
-                    dni: "34343569"
+                    nombre: "Cristian",
+                    apellido: "Cometti",
+                    correo: "cometticristian@gmail.com",
+                    dni: "35716158"
                 },
                 {
-                    nombre: "Mariana",
-                    apellido: "Baena",
-                    correo: "baenamariana@gmail.com",
-                    dni: "35199901"
-                },
-                {
-                    nombre: "Nicol\u00e1s",
-                    apellido: "Calezich",
-                    correo: "ncalezich@gmail.com",
-                    dni: "42300580"
-                },
-                {
-                    nombre: "Lucas Nazareno Oscar",
-                    apellido: "De Nicola",
-                    correo: "lnazareno.dn@gmail.com",
-                    dni: "40008509"
-                },
-                {
-                    nombre: "Juan Manuel",
-                    apellido: "Mansilla",
-                    correo: "juan.mansa.27@gmail.com",
-                    dni: "31641425"
-                },
-                {
-                    nombre: "Stefania",
-                    apellido: "Albornoz Iba\u00f1ez",
-                    correo: "stefania.alb95@gmail.com",
-                    dni: "39267767"
-                },
-                {
-                    nombre: "Manuel Francisco",
-                    apellido: "Alonso",
-                    correo: "manuelalonso89@gmail.com",
-                    dni: "34577276"
-                },
-                {
-                    nombre: "Nicolas Matias",
-                    apellido: "Altman",
-                    correo: "altman.nicolas44@gmail.com",
-                    dni: "43917983"
-                },
-                {
-                    nombre: "Lucas Sebastian",
-                    apellido: "Alvarez",
-                    correo: "lucas.alvarez@outlook.com",
-                    dni: "31675077"
-                },
-                {
-                    nombre: "Tomas Adolfo",
-                    apellido: "Baril",
-                    correo: "tomasbaril@gmail.com",
-                    dni: "42252152"
+                    nombre: "Martin",
+                    apellido: "Gruber",
+                    correo: "martogruber@hotmail.com",
+                    dni: "40537273"
                 },
                 {
                     nombre: "Juan Ignacio",
-                    apellido: "Bartamian",
-                    correo: "juan.i.bartamian@gmail.com",
-                    dni: "37124248"
+                    apellido: "Lotito",
+                    correo: "juanilotito@gmail.com",
+                    dni: "40971614"
                 },
                 {
-                    nombre: "Emmanuel Pablo",
-                    apellido: "Belascuain",
-                    correo: "epbelascuain@hotmail.com",
-                    dni: "34505219"
-                },
-                {
-                    nombre: "Ariel",
-                    apellido: "Bonfil",
-                    correo: "stoari33@gmail.com",
-                    dni: "42933057"
-                },
-                {
-                    nombre: "Francisco",
-                    apellido: "Carbonelli",
-                    correo: "carbonelli.francisco@gmail.com",
-                    dni: "41562119"
-                },
-                {
-                    nombre: "Ayelen",
-                    apellido: "Centurion",
-                    correo: "ayecenturion23@gmail.com",
-                    dni: "35380400"
-                },
-                {
-                    nombre: "Nicolas",
-                    apellido: "Escandarani",
-                    correo: "nico@escandarani.com.ar",
-                    dni: "38996292"
-                },
-                {
-                    nombre: "Ezequiel Matias",
-                    apellido: "Girola",
-                    correo: "ezequielgirola@gmail.com",
-                    dni: "40731392"
-                },
-                {
-                    nombre: "Lucas",
-                    apellido: "Goldberg",
-                    correo: "luquigold@gmail.com",
-                    dni: "42103146"
-                },
-                {
-                    nombre: "Natalia Carla",
-                    apellido: "Gorrini",
-                    correo: "natalia.gorrini@gmail.com",
-                    dni: "31917770"
-                },
-                {
-                    nombre: "Ezequiel",
-                    apellido: "Gresia",
-                    correo: "gresia.ezequiel@gmail.com",
-                    dni: "33111140"
-                },
-                {
-                    nombre: "Jonathan",
-                    apellido: "Jusid",
-                    correo: "jony_jusid@hotmail.com",
-                    dni: "36729777"
-                },
-                {
-                    nombre: "Matias Raffi",
-                    apellido: "Kaladjian",
-                    correo: "matiraffi@gmail.com",
-                    dni: "44158631"
-                },
-                {
-                    nombre: "Bruno",
-                    apellido: "Kiryluk",
-                    correo: "brunokiryluk@gmail.com",
-                    dni: "40513359"
-                },
-                {
-                    nombre: "Matheo Andres",
-                    apellido: "Kuktosky Fernandez",
-                    correo: "matheomike@outlook.com",
-                    dni: "51705700"
-                },
-                {
-                    nombre: "Fernando Daniel",
-                    apellido: "Martinez",
-                    correo: "fernandodanielmartinez@hotmail.com",
-                    dni: "29846980"
-                },
-                {
-                    nombre: "Nicolas Patricio",
-                    apellido: "Miranda",
-                    correo: "nicopmiranda@gmail.com",
-                    dni: "38996677"
-                },
-                {
-                    nombre: "Josue",
-                    apellido: "Molina",
-                    correo: "91mlnjs@gmail.com",
-                    dni: "36064250"
-                },
-                {
-                    nombre: "Juan Pablo",
-                    apellido: "Morvidone",
-                    correo: "jpmorvidone@gmail.com",
-                    dni: "30558613"
-                },
-                {
-                    nombre: "Federico Javier",
-                    apellido: "Musmanno",
-                    correo: "federicomusmanno@gmail.com",
-                    dni: "28023098"
-                },
-                {
-                    nombre: "Ljubo",
-                    apellido: "Novakovich",
-                    correo: "ljubonovako@hotmail.com",
-                    dni: "42200339"
-                },
-                {
-                    nombre: "Juan Pablo",
-                    apellido: "Ocampo",
-                    correo: "juampioca@gmail.com",
-                    dni: "31974266"
-                },
-                {
-                    nombre: "Matias",
-                    apellido: "Olivera",
-                    correo: "matibjolivera@gmail.com",
-                    dni: "42300564"
-                },
-                {
-                    nombre: "Lucas Abraham",
-                    apellido: "Palacios",
-                    correo: "lucaspalac94@hotmail.com",
-                    dni: "38622462"
-                },
-                {
-                    nombre: "Onnig Ariel",
-                    apellido: "Panossian",
-                    correo: "onnigpano@gmail.com",
-                    dni: "37007619"
-                },
-                {
-                    nombre: "Miguel Matias",
-                    apellido: "Paz",
-                    correo: "mattias.-95@hotmail.es",
-                    dni: "38887185"
-                },
-                {
-                    nombre: "Axel",
-                    apellido: "Podostrojec",
-                    correo: "apodostrojec@gmail.com",
-                    dni: "36275191"
-                },
-                {
-                    nombre: "Macarena",
-                    apellido: "Quiroz",
-                    correo: "maca91@hotmail.com",
-                    dni: "36527991"
+                    nombre: "Miguel Angel",
+                    apellido: "Traversaro",
+                    correo: "migueltraversaro@gmail.com",
+                    dni: "39067992"
                 },
                 {
                     nombre: "Lautaro",
-                    apellido: "Robles",
-                    correo: "robles_lautaro@hotmail.com.ar",
-                    dni: "42727364"
+                    apellido: "Valenzuela",
+                    correo: "lautarovalenzuela94@gmail.com",
+                    dni: "43815634"
                 },
                 {
-                    nombre: "Erik",
-                    apellido: "Rodriguez Meisel",
-                    correo: "erikmeisel@gmail.com",
-                    dni: "18866485"
+                    nombre: "MELANY CRISTINA",
+                    apellido: "RUIZ",
+                    correo: "melanyruiz12@gmail.com",
+                    dni: "40007529"
                 },
                 {
-                    nombre: "Nicolas Ezequiel",
-                    apellido: "Roldan",
-                    correo: "nicolasroldan128@gmail.com",
-                    dni: "35094383"
+                    nombre: "Gabriela",
+                    apellido: "Alba",
+                    correo: "gabriela.alba24@gmail.com",
+                    dni: "18905522"
                 },
                 {
-                    nombre: "Gianfranco",
-                    apellido: "Scapin",
-                    correo: "gianscapin96@gmail.com",
-                    dni: "39917168"
+                    nombre: "GISELLA MARIA",
+                    apellido: "ARAMAYO",
+                    correo: "gisella.aramayo@gmail.com",
+                    dni: "38511609"
                 },
                 {
-                    nombre: "Jorge Pablo",
-                    apellido: "Serrano Gomez",
-                    correo: "jorgepablosg@hotmail.com",
-                    dni: "43243181"
+                    nombre: "FEDERICO MARTIN",
+                    apellido: "CRISCUOLO",
+                    correo: "fc@criscuolo.com.ar",
+                    dni: "30664318"
                 },
                 {
-                    nombre: "Ivo Gonzalo",
-                    apellido: "Stipicic",
-                    correo: "ivo.stipicic@gmail.com",
-                    dni: "36719772"
+                    nombre: "SALMA ROCIO",
+                    apellido: "DERMISACHE",
+                    correo: "salma.dermisache@gmail.com",
+                    dni: "42252693"
                 },
                 {
-                    nombre: "Federico Agustin",
-                    apellido: "Vazquez",
-                    correo: "federicoagvazquez@gmail.com",
-                    dni: "36931347"
+                    nombre: "BELEN ELIZABETH",
+                    apellido: "ROMERO",
+                    correo: "beellromero@gmail.com",
+                    dni: "38983628"
+                },
+                {
+                    nombre: "FEDERICO ARIEL",
+                    apellido: "VAZQUEZ",
+                    correo: "federicoarielvazquez@gmail.com",
+                    dni: "29752258"
+                },
+                {
+                    nombre: "Ivan",
+                    apellido: "Ramis",
+                    correo: "ivanra48@gmail.com",
+                    dni: "36397441"
+                },
+                {
+                    nombre: "LUCAS",
+                    apellido: "AUPI",
+                    correo: "lucas-aupi@hotmail.com",
+                    dni: "39077076"
+                },
+                {
+                    nombre: "Andres",
+                    apellido: "Distefano",
+                    correo: "ahdistefano@gmail.com",
+                    dni: "36806982"
+                },
+                {
+                    nombre: "ALEJO MANUEL",
+                    apellido: "GARCIA",
+                    correo: "ale.garciaa210@gmail.com",
+                    dni: "37859210"
                 }
             ]
+
         },
         computed: {
             personasFiltradas() {
                 return this.personas.filter((persona) => {
                     let registroCompleto = `${persona.nombre} ${persona.apellido} ${persona.dni} ${persona.correo}`
                     return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase())
-                });
-            },
-            personasFiltradasPorNombre() {
-                return this.personas.filter((persona) => {
-                    let registroCompleto = `${persona.nombre} ${persona.apellido}`
-                    return registroCompleto.toLowerCase().includes(this.nombreApellido.toLowerCase())
-                });
-            },
-            personasFiltradasPorDni() {
-                return this.personas.filter((persona) => {
-                    let registroCompleto = `${persona.dni}`
-                    return registroCompleto.toLowerCase().includes(this.dni.toLowerCase())
                 });
             }
         },
