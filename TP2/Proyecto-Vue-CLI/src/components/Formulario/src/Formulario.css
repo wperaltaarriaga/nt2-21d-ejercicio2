@@ -1,0 +1,9 @@
+.card-header{
+    background-color: hsl(75, 44%, 63%);
+    color: white   ;
+}
+
+label{
+    text-transform: capitalize; /* PARA QUE ARRANQUE EN MAYUSCULA */
+    margin-top: 10px;
+}
