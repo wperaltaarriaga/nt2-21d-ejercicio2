@@ -6,15 +6,35 @@
         <div class="card-body">
 
           <div class="container-fluid mt-3" id="app">
-            <input type="text" class="form-control" v-model="criterioDeBusqueda"
-              placeholder="Ingresar Nombre a buscar...">
+<!--             <input 
+              type="text" 
+              class="form-control" 
+              v-model.trim="criterioNombre"
+              placeholder="Buscar por Nombre o Apellido"
+            > -->
+            <input 
+              type="text" 
+              class="form-control" 
+              v-model.trim="criterioDeBusqueda"
+              placeholder="Buscar por Nombre o Apellido"
+            >
             <br>
-            <input type="text" class="form-control" v-model="criterioDeBusqueda"
-              placeholder="Ingresar DNI a buscar...">
+            <input 
+              type="text" 
+              class="form-control" 
+              v-model.trim="criterioDeBusqueda"
+              placeholder="Buscar por DNI"
+            >
             <br>
+<!--             <input 
+              type="text" 
+              class="form-control" 
+              v-model.trim="criterioDni" 
+              placeholder="Buscar por DNI">
+            <br> -->
             <div class="card-deck m-0">
               <div class="row">
-                <div class="col" v-for="persona in personasFiltradas">
+                <div class="col" v-for="persona in personasFiltradas" :key="persona.dni">
                   <div class="card mb-3">
                     <div class="card-body">
                       <h5 class="card-title">{{ getNombreCompleto(persona) }}</h5>
@@ -36,6 +56,8 @@ export default {
   name: 'Cards',
   data() {
     return {
+/*       criterioNombre: '',
+      criterioDni: '', */
       criterioDeBusqueda: '',
 
       personas: [
@@ -58,10 +80,10 @@ export default {
           dni: "87654321"
         },
         {
-          nombre: "...",
-          apellido: "...",
-          correo: "...",
-          dni: "..."
+          nombre: "Wanda Mercedes",
+          apellido: "Peralta Arriaga",
+          correo: "wperaltaarriaga@gmail.com",
+          dni: "42821432"
         },
       ]
     };

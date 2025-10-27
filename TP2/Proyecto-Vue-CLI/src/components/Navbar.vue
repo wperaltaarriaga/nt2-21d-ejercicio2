@@ -10,19 +10,7 @@
           <div class="collapse navbar-collapse" id="navbarNav"> <!-- item de navegacion -->
             <ul class="navbar-nav">
               <li class="nav-item">
-                <RouterLink class="nav-link" to="/binding">Binding</RouterLink> <!-- marca de la navbar -->             
-              </li>
-              <li class="nav-item">
-                <RouterLink class="nav-link" to="/estructura">Estructura</RouterLink> <!-- marca de la navbar -->>
-              </li>
-              <li class="nav-item">
-                <RouterLink class="nav-link" to="/atributos">Atributos</RouterLink> <!-- marca de la navbar -->
-              </li>
-              <li class="nav-item">
-                <RouterLink class="nav-link" to="/formulario">Formulario</RouterLink> <!-- marca de la navbar -->>
-              </li>
-              <li class="nav-item">
-                <RouterLink class="nav-link" to="/cards">Cards</RouterLink> <!-- marca de la navbar -->>
+                <RouterLink class="nav-link" to="/cards">Cards</RouterLink> 
               </li>
               
             </ul>
@@ -34,16 +22,8 @@
 <script>
 export default {
   name: 'Navbar', 
-
- data() {
-    return {
-    };
-  },
-  methods: {
-    // Métodos del componente
-  },
 }
-
 </script>
 <style scoped>
+
 </style>
