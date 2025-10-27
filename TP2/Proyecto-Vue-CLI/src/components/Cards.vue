@@ -6,21 +6,27 @@
         <div class="card-body">
 
           <div class="container-fluid mt-3" id="app">
-            <label for="nombre">Busqueda por Nombre</label>
-            <input id="nombre" type="text" class="form-control" v-model.trim="criterioDeBusquedaNombre">
-            <!-- cartel de validacion 
-            <div v-if="errorNombre.mostrar" class="alert alert-danger my-1">
-              {{ errorNombre.mensaje }}
-            </div>
-            <br>-->
+            <input
+              id="filtro-nombre"
+              type="text"
+              class="form-control"
+              v-model.trim="criterioNombre"
+              placeholder="Buscar por Nombre o Apellido..."
+            />
+            <br />
 
-            <!--             <input 
-              type="text" 
-              class="form-control" 
-              v-model.trim="criterioDeBusquedaDni"
-              placeholder="Buscar por DNI"
-            >
-            <br> -->
+            <input
+              id="filtro-dni"
+              type="text"
+              class="form-control"
+              v-model.trim="criterioDni"
+              placeholder="Buscar por DNI..."
+            />
+            <br />
+
+            <div v-if="mostrarAdvertencia" class="alert alert-warning py-2">
+              Ingrese al menos 3 caracteres en Nombre o DNI para realizar la búsqueda.
+            </div>
 
             <div class="card-deck m-0">
               <div class="row">
@@ -35,6 +41,10 @@
                 </div>
               </div>
             </div>
+            <br>
+            <div class="col-12" v-if="!mostrarAdvertencia && personasFiltradas.length === 0">
+              <div class="alert alert-warning"> Sin resultados buscando por Nombre y/o Apellido </div>
+            </div>
           </div>
         </div>
       </section>
@@ -46,8 +56,8 @@ export default {
   name: 'Cards',
   data() {
     return {
-      criterioDeBusquedaNombre: ' ',
-      /*      criterioDeBusquedaDni:' ', */
+      criterioNombre: '',
+      criterioDni: '',
 
       personas: [
         {
@@ -80,10 +90,30 @@ export default {
 
   computed: {
     personasFiltradas() {
-      return this.personas.filter((persona) => {
-        let registroCompleto = `${persona.nombre} ${persona.apellido} ${persona.dni} ${persona.correo}`
-        return registroCompleto.toLowerCase().includes(this.criterioDeBusquedaNombre.toLowerCase())
+      const nombreQ = this.normalizar(this.criterioNombre);
+      const dniQ    = (this.criterioDni ?? '').replace(/\D/g, ''); 
+
+      const nombreActivo = nombreQ.length > 0;
+      const dniActivo    = dniQ.length > 0;
+
+    
+      if (!nombreActivo && !dniActivo) return this.personas;
+
+      return this.personas.filter((p) => {
+        const nombreCompleto = this.normalizar(`${p?.nombre ?? ''} ${p?.apellido ?? ''}`);
+        const dniPersona     = String(p?.dni ?? '');
+
+        const matchNombre = nombreActivo ? nombreCompleto.includes(nombreQ) : true;
+        const matchDni    = dniActivo    ? dniPersona.includes(dniQ)        : true;
+        return matchNombre && matchDni;
       });
+    },
+
+    mostrarAdvertencia() {
+      return (
+        (this.criterioNombre.length > 0 && this.criterioNombre.length < 3) ||
+        (this.criterioDni.length > 0 && this.criterioDni.length < 3)
+      );
     },
   },
 
@@ -91,8 +121,19 @@ export default {
     getNombreCompleto(persona) {
       return `${persona.nombre} ${persona.apellido}`
     },
-  }
+    normalizar(str) {
+      return (str ?? '')
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, ''); 
+    },
+  },
 };
+  
+
+
+
 </script>
 <style scoped>
 .card-header {
